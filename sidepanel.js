@@ -9,11 +9,11 @@ Use exactly these sections:
 ### Overview
 (2-3 sentences)
 ### Key concepts
-(bullets; add timestamps like [12:30] when the transcript has them)
+(bullets; 1-2 sentences each)
 ### Definitions and formulas
 ### Examples
 ### Review questions
-(3 short self-test questions)
+(3 short self-test questions; with answers hidden in a collapsible section)
 Use only information from the transcript. Be concise; skip filler and small talk.`;
 
 const MERGE_SYSTEM = `You merge partial study notes from consecutive parts of ONE lecture into a single set of notes.
