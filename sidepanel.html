@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Course Notes Agent</title>
+  <style>
+    body { font: 13px/1.45 system-ui, sans-serif; margin: 0; padding: 12px; color: #1f2328; }
+    h1 { font-size: 15px; margin: 0 0 10px; }
+    h2 { font-size: 13px; margin: 16px 0 6px; }
+    label { display: block; margin: 6px 0 2px; font-weight: 600; }
+    input[type=text], input[type=password], select, textarea { width: 100%; box-sizing: border-box; padding: 6px; border: 1px solid #ccd; border-radius: 6px; font: inherit; background: #fff; }
+    textarea { min-height: 120px; }
+    button { padding: 6px 10px; margin: 4px 4px 0 0; border: 1px solid #ccd; border-radius: 6px; background: #f6f8fa; cursor: pointer; font: inherit; }
+    button.primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+    button.danger { background: #dc2626; color: #fff; border-color: #dc2626; }
+    button:disabled { opacity: .5; cursor: default; }
+    #status { margin: 8px 0; padding: 6px 8px; border-radius: 6px; background: #f1f5f9; min-height: 18px; white-space: pre-wrap; }
+    #status.error { background: #fee2e2; }
+    details { border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; margin: 6px 0; }
+    summary { cursor: pointer; font-weight: 600; }
+    pre { white-space: pre-wrap; word-wrap: break-word; font: 12px/1.45 ui-monospace, monospace; background: #fafafa; padding: 8px; border-radius: 6px; }
+    .meta, .hint { color: #667; font-size: 11px; }
+    .hint { margin-top: 4px; }
+    .row { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+    .box { border: 1px solid #c7d2fe; background: #f8faff; border-radius: 8px; padding: 8px; margin: 8px 0; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <h1>📝 Course Notes Agent</h1>
+
+  <details id="settingsBox">
+    <summary>Settings (AI model)</summary>
+    <label for="provider">Provider</label>
+    <select id="provider"></select>
+    <div id="providerHint" class="hint"></div>
+    <label for="baseUrl">Server URL</label>
+    <input type="text" id="baseUrl">
+    <div id="keyRow">
+      <label for="apiKey">API key</label>
+      <input type="password" id="apiKey" placeholder="Paste your free API key" autocomplete="off">
+      <div class="hint">Stored only in this browser profile.</div>
+    </div>
+    <label for="model">Model</label>
+    <input type="text" id="model">
+    <button id="saveSettings">Save</button>
+    <button id="testLLM">Test connection</button>
+  </details>
+
+  <label for="course">Course</label>
+  <input type="text" id="course" list="courseList" placeholder="e.g. Agentic AI">
+  <datalist id="courseList"></datalist>
+
+  <div>
+    <button id="noteBtn" class="primary">Note this video</button>
+    <button id="manualBtn">Add transcript</button>
+    <button id="summaryBtn">Course summary</button>
+    <button id="exportBtn">Export .md</button>
+    <button id="stopBtn" class="danger hidden">Stop</button>
+  </div>
+  <div class="row">
+    <input type="checkbox" id="auto"><label for="auto" style="margin:0;font-weight:400">Auto-note each video when ~95% watched (panel must stay open)</label>
+  </div>
+
+  <div id="status"></div>
+
+  <div id="manualBox" class="box hidden">
+    <div id="manualMsg" class="meta"></div>
+    <label for="manualTitle">Lecture title</label>
+    <input type="text" id="manualTitle">
+    <label for="manualFile">Transcript file (.txt, .vtt, .srt)</label>
+    <input type="file" id="manualFile" accept=".txt,.vtt,.srt,.md,text/plain,text/vtt">
+    <label for="manualText">…or paste the transcript</label>
+    <textarea id="manualText" placeholder="Paste transcript text here"></textarea>
+    <button id="manualGo" class="primary">Make notes</button>
+    <button id="manualCancel">Cancel</button>
+  </div>
+
+  <h2>Course summary</h2>
+  <div id="summaryOut" class="meta">Not generated yet.</div>
+
+  <h2>Lecture notes <span id="count" class="meta"></span></h2>
+  <div id="notesList"></div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

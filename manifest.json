@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Course Notes Agent",
+  "version": "0.2.2",
+  "description": "Takes notes on online course videos with a free LLM (Groq, Gemini or local Ollama) and builds a course summary.",
+  "permissions": ["sidePanel", "storage", "unlimitedStorage", "scripting", "tabs", "declarativeNetRequestWithHostAccess"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "sidepanel.html" },
+  "action": { "default_title": "Course Notes Agent" },
+  "content_scripts": [
+    { "matches": ["<all_urls>"], "js": ["content.js"], "run_at": "document_idle" }
+  ]
+}
